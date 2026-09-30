@@ -25,3 +25,8 @@
   .admin-card{grid-template-columns:1fr}
   .admin-image{max-height:300px}
 }
+
+.admin-login-form{display:grid;gap:14px;max-width:440px;margin:18px auto 0;text-align:left}
+.admin-login-form label{display:grid;gap:7px;font-weight:700}
+.admin-login-form input{width:100%;box-sizing:border-box;padding:13px 14px;border:1px solid var(--line);border-radius:12px;background:#fff;font:inherit}
+.admin-login-form .btn{width:100%}

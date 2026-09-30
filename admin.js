@@ -7,6 +7,8 @@ const adminApp=document.getElementById("adminApp");
 const content=document.getElementById("adminContent");
 const stats=document.getElementById("adminStats");
 const toast=document.getElementById("toast");
+const loginForm=document.getElementById("adminLoginForm");
+const loginMessage=document.getElementById("adminLoginMessage");
 let currentView="pending";
 let adminUser=null;
 
@@ -21,26 +23,53 @@ async function signedUrl(path){
   return error?null:data?.signedUrl||null;
 }
 
-async function init(){
+async function checkAdminAccess(){
+  const{data,error}=await sb.rpc("check_admin_access");
+  return{ok:Boolean(data),error};
+}
+async function openDashboard(){
   const{data,error}=await sb.auth.getUser();
-  if(error||!data.user){
-    gate.innerHTML='<h2>Login diperlukan</h2><p>Panel admin hanya dapat digunakan setelah login.</p><a class="btn primary" href="index.html#account">Kembali ke login</a>';
-    return;
+  if(error||!data.user)return false;
+  const check=await checkAdminAccess();
+  if(check.error){
+    loginMessage.textContent=check.error.message||"Gagal memeriksa akses admin.";
+    loginMessage.className="form-message error";
+    return false;
   }
-  const{data:isAdmin,error:adminError}=await sb.rpc("check_admin_access");
-  if(adminError){
-    gate.innerHTML='<h2>Akses admin belum siap</h2><p>'+esc(adminError.message)+'</p><a class="btn primary" href="index.html">Kembali</a>';
-    return;
-  }
-  if(!isAdmin){
-    gate.innerHTML='<h2>Akses ditolak</h2><p>Akun ini sudah login, tetapi belum terdaftar sebagai admin.</p><a class="btn primary" href="index.html#account">Kembali</a>';
-    return;
+  if(!check.ok){
+    loginMessage.textContent="Akun ini bukan admin.";
+    loginMessage.className="form-message error";
+    return false;
   }
   adminUser=data.user;
   gate.classList.add("hidden");
   adminApp.classList.remove("hidden");
   await loadStats();
   await loadView();
+  return true;
+}
+async function loginAdmin(e){
+  e.preventDefault();
+  loginMessage.textContent="Memeriksa akun...";
+  loginMessage.className="form-message";
+  const email=document.getElementById("adminEmail").value.trim();
+  const password=document.getElementById("adminPassword").value;
+  const{data,error}=await sb.auth.signInWithPassword({email,password});
+  if(error){
+    loginMessage.textContent=error.message||"Login gagal.";
+    loginMessage.className="form-message error";
+    return;
+  }
+  if(!data.session){
+    loginMessage.textContent="Login belum membuat sesi.";
+    loginMessage.className="form-message error";
+    return;
+  }
+  await openDashboard();
+}
+async function init(){
+  const{data}=await sb.auth.getSession();
+  if(data.session) await openDashboard();
 }
 
 async function loadStats(){
@@ -176,4 +205,5 @@ async function loadLogs(){
 }
 
 document.querySelectorAll("[data-view]").forEach(b=>b.onclick=()=>{currentView=b.dataset.view;loadView()});
+loginForm?.addEventListener("submit",loginAdmin);
 init();

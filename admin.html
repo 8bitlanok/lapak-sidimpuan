@@ -21,7 +21,16 @@
     <p class="muted">Moderasi, laporan, pengguna, dan riwayat aktivitas.</p>
   </div>
 
-  <div id="adminGate" class="empty">Memeriksa akses admin...</div>
+  <div id="adminGate" class="empty">
+  <h2>Masuk ke Admin</h2>
+  <p>Gunakan akun admin Lapak Sidimpuan. Login admin dipisahkan dari halaman pengguna biasa.</p>
+  <form id="adminLoginForm" class="admin-login-form">
+    <label>Email<input id="adminEmail" type="email" autocomplete="username" required placeholder="Email admin"></label>
+    <label>Password<input id="adminPassword" type="password" autocomplete="current-password" required placeholder="Password"></label>
+    <button class="btn primary" type="submit">Masuk sebagai admin</button>
+    <p id="adminLoginMessage" class="form-message"></p>
+  </form>
+</div>
 
   <div id="adminApp" class="hidden">
     <div id="adminStats" class="admin-stats"></div>
