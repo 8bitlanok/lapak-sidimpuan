@@ -15,10 +15,9 @@
       <a href="#barang">Barang</a>
       <a href="#jasa">Jasa</a>
       <a href="#cara">Cara kerja</a>
-      <a class="nav-login" href="#">Masuk</a>
+      <button class="nav-login" id="accountBtn" type="button">Masuk</button>
     </nav>
   </header>
-
   <main>
     <section class="hero">
       <p class="eyebrow">Marketplace lokal mahasiswa</p>
@@ -26,57 +25,27 @@
       <p class="hero-copy">Tempat sederhana untuk barang bekas, perlengkapan kuliah, motor, dan jasa dari mahasiswa lokal.</p>
       <div class="hero-actions">
         <a class="btn btn-primary" href="#barang">Cari barang</a>
-        <a class="btn btn-secondary" href="#">Jual barang / jasa</a>
+        <button class="btn btn-secondary" id="sellBtn" type="button">Jual barang / jasa</button>
       </div>
     </section>
-
     <section class="search-section" aria-label="Pencarian">
       <label for="search">Cari di Lapak Sidimpuan</label>
-      <div class="search-box">
-        <input id="search" type="search" placeholder="Contoh: meja kos, laptop, desain..." autocomplete="off">
-        <button type="button" id="searchBtn">Cari</button>
-      </div>
+      <div class="search-box"><input id="search" type="search" placeholder="Contoh: meja kos, laptop, desain..." autocomplete="off"><button type="button" id="searchBtn">Cari</button></div>
     </section>
-
     <section id="barang" class="section">
-      <div class="section-heading">
-        <div>
-          <p class="eyebrow">Jelajahi</p>
-          <h2>Barang</h2>
-        </div>
-        <a href="#">Lihat semua</a>
-      </div>
+      <div class="section-heading"><div><p class="eyebrow">Jelajahi</p><h2>Barang</h2></div><a href="#barang">Lihat semua</a></div>
       <div class="category-grid">
-        <a href="#" class="category-card">Elektronik</a>
-        <a href="#" class="category-card">Furniture</a>
-        <a href="#" class="category-card">Buku & Kuliah</a>
-        <a href="#" class="category-card">Pakaian</a>
-        <a href="#" class="category-card">Motor</a>
-        <a href="#" class="category-card">Lainnya</a>
+        <a href="#barang" class="category-card">Elektronik</a><a href="#barang" class="category-card">Furniture</a><a href="#barang" class="category-card">Buku & Kuliah</a><a href="#barang" class="category-card">Pakaian</a><a href="#barang" class="category-card">Motor</a><a href="#barang" class="category-card">Lainnya</a>
       </div>
     </section>
-
     <section id="jasa" class="section">
-      <div class="section-heading">
-        <div>
-          <p class="eyebrow">Jelajahi</p>
-          <h2>Jasa</h2>
-        </div>
-        <a href="#">Lihat semua</a>
-      </div>
+      <div class="section-heading"><div><p class="eyebrow">Jelajahi</p><h2>Jasa</h2></div><a href="#jasa">Lihat semua</a></div>
       <div class="category-grid">
-        <a href="#" class="category-card">Design</a>
-        <a href="#" class="category-card">Video Editing</a>
-        <a href="#" class="category-card">Les Privat</a>
-        <a href="#" class="category-card">Dokumen</a>
-        <a href="#" class="category-card">Terjemahan</a>
-        <a href="#" class="category-card">Lainnya</a>
+        <a href="#jasa" class="category-card">Design</a><a href="#jasa" class="category-card">Video Editing</a><a href="#jasa" class="category-card">Les Privat</a><a href="#jasa" class="category-card">Dokumen</a><a href="#jasa" class="category-card">Terjemahan</a><a href="#jasa" class="category-card">Lainnya</a>
       </div>
     </section>
-
     <section id="cara" class="section how">
-      <p class="eyebrow">Sederhana</p>
-      <h2>Cara kerja</h2>
+      <p class="eyebrow">Sederhana</p><h2>Cara kerja</h2>
       <div class="steps">
         <article><strong>01</strong><h3>Cari</h3><p>Temukan barang atau jasa di sekitar Sidimpuan.</p></article>
         <article><strong>02</strong><h3>Hubungi</h3><p>Kontak penjual langsung lewat WhatsApp.</p></article>
@@ -84,13 +53,28 @@
       </div>
     </section>
   </main>
-
-  <footer class="footer">
-    <strong>Lapak Sidimpuan</strong>
-    <p>Marketplace lokal mahasiswa Padangsidimpuan.</p>
-    <small>Versi awal · Semua postingan melalui moderasi admin.</small>
-  </footer>
-
+  <footer class="footer"><strong>Lapak Sidimpuan</strong><p>Marketplace lokal mahasiswa Padangsidimpuan.</p><small>Versi awal · Semua postingan melalui moderasi admin.</small></footer>
+  <div class="modal-backdrop" id="authModal" hidden>
+    <section class="auth-modal" role="dialog" aria-modal="true" aria-labelledby="authTitle">
+      <button class="modal-close" id="closeAuthBtn" type="button" aria-label="Tutup">×</button>
+      <p class="eyebrow">Akun Lapak</p><h2 id="authTitle">Masuk</h2>
+      <p class="auth-copy" id="authDescription">Masuk untuk mengelola akun dan memasang iklan.</p>
+      <div class="auth-tabs"><button class="auth-tab active" id="loginTab" type="button">Masuk</button><button class="auth-tab" id="registerTab" type="button">Daftar</button></div>
+      <form id="authForm">
+        <div class="form-field register-only" hidden><label for="name">Nama</label><input id="name" type="text" minlength="2" maxlength="100" autocomplete="name"></div>
+        <div class="form-field"><label for="email">Email</label><input id="email" type="email" required autocomplete="email"></div>
+        <div class="form-field"><label for="password">Password</label><input id="password" type="password" required minlength="6" autocomplete="current-password"></div>
+        <div class="form-field register-only" hidden><label for="whatsapp">WhatsApp <span>(opsional)</span></label><input id="whatsapp" type="tel" maxlength="20" autocomplete="tel" placeholder="08xxxxxxxxxx"></div>
+        <button class="btn btn-primary auth-submit" id="authSubmit" type="submit">Masuk</button>
+        <p class="auth-message" id="authMessage" role="status"></p>
+      </form>
+      <div class="account-panel" id="accountPanel" hidden>
+        <p class="account-label">Sedang masuk sebagai</p><strong id="accountName">-</strong><span id="accountEmail">-</span>
+        <button class="btn btn-secondary" id="logoutBtn" type="button">Keluar</button>
+      </div>
+    </section>
+  </div>
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
   <script src="app.js"></script>
 </body>
 </html>
