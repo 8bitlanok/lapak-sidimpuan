@@ -25,6 +25,9 @@ Urutannya mengikuti kategori yang ditampilkan.
 ## Mengubah visual Home
 Di `style.css` cari `.hero-visual`, `.visual-main`, dan `.visual-side`. Visual sekarang dibuat dengan CSS + emoji agar ringan dan tidak bergantung URL gambar pihak ketiga.
 
+## Data penjual di listing
+Kartu listing tidak melakukan nested join ke profil penjual. Nama penjual diambil lewat fungsi `getSellerName()` saat detail dibuka. Ini menghindari relasi PostgREST yang tidak langsung.
+
 ## Aturan foto listing
 Di `submitListing()`:
 - Barang biasa: minimal 3 foto.
