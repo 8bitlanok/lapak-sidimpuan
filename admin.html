@@ -1,1 +1,47 @@
-<!doctype html><html lang="id"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="theme-color" content="#176b4d"><title>Admin - Lapak Sidimpuan</title><link rel="stylesheet" href="style.css"><link rel="stylesheet" href="admin.css"></head><body><header class="site-header"><a class="brand" href="index.html">Lapak <span>Sidimpuan</span></a><a class="account-btn" href="index.html">Kembali</a></header><main class="app-shell"><section class="page"><div class="page-title"><p class="eyebrow">ADMIN</p><h1>Moderasi listing</h1><p class="muted">Periksa listing sebelum tampil ke publik.</p></div><div id="adminGate" class="empty">Memeriksa akses admin...</div><div id="adminApp" class="hidden"><div class="admin-toolbar"><button class="filter-chip active" data-status="pending">Pending</button><button class="filter-chip" data-status="published">Aktif</button><button class="filter-chip" data-status="sold">Terjual</button><button class="filter-chip" data-status="rejected">Ditolak</button></div><div id="adminList"></div></div></section></main><div id="toast" class="toast"></div><script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script><script src="admin.js"></script></body></html>
+<!doctype html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="theme-color" content="#176b4d">
+<title>Admin - Lapak Sidimpuan</title>
+<link rel="stylesheet" href="style.css">
+<link rel="stylesheet" href="admin.css">
+</head>
+<body>
+<header class="site-header">
+  <a class="brand" href="index.html">Lapak <span>Sidimpuan</span></a>
+  <a class="account-btn" href="index.html">Kembali</a>
+</header>
+<main class="app-shell">
+<section class="page">
+  <div class="page-title">
+    <p class="eyebrow">ADMIN</p>
+    <h1>Dashboard Lapak</h1>
+    <p class="muted">Moderasi, laporan, pengguna, dan riwayat aktivitas.</p>
+  </div>
+
+  <div id="adminGate" class="empty">Memeriksa akses admin...</div>
+
+  <div id="adminApp" class="hidden">
+    <div id="adminStats" class="admin-stats"></div>
+
+    <div class="admin-nav" role="tablist">
+      <button class="filter-chip active" data-view="pending">Pending</button>
+      <button class="filter-chip" data-view="published">Aktif</button>
+      <button class="filter-chip" data-view="sold">Terjual</button>
+      <button class="filter-chip" data-view="rejected">Ditolak</button>
+      <button class="filter-chip" data-view="reports">Laporan</button>
+      <button class="filter-chip" data-view="users">Pengguna</button>
+      <button class="filter-chip" data-view="logs">Riwayat</button>
+    </div>
+
+    <div id="adminContent"></div>
+  </div>
+</section>
+</main>
+<div id="toast" class="toast"></div>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="admin.js"></script>
+</body>
+</html>
