@@ -1,1 +1,101 @@
-:root{--bg:#f6f8f7;--surface:#fff;--text:#18201c;--muted:#68716b;--line:#dfe5e1;--accent:#176b4d;--accent-dark:#0e4e38;--danger:#b42318;--radius:18px;--shadow:0 10px 35px rgba(20,30,25,.07)}*{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;background:var(--bg);color:var(--text);font-family:Inter,system-ui,-apple-system,"Segoe UI",sans-serif;line-height:1.5;padding-bottom:84px}button,input,select,textarea{font:inherit}a{color:inherit;text-decoration:none}.site-header{position:sticky;top:0;z-index:20;display:flex;align-items:center;justify-content:space-between;padding:14px 18px;background:rgba(255,255,255,.95);backdrop-filter:blur(14px);border-bottom:1px solid var(--line)}.brand{font-weight:850;font-size:1.1rem;letter-spacing:-.03em}.brand span{color:var(--accent)}.header-actions{display:flex;gap:8px;align-items:center}.icon-btn,.modal-close{border:0;background:transparent;cursor:pointer}.icon-btn{font-size:1.7rem}.account-btn{border:0;background:var(--text);color:#fff;border-radius:999px;padding:9px 14px;font-weight:750}.app-shell{max-width:1120px;margin:auto}.page{padding:24px 18px}.hero{padding:42px 0 28px;max-width:760px}.eyebrow{margin:0 0 7px;color:var(--accent);font-size:.76rem;font-weight:850;letter-spacing:.12em}.hero h1,.page-title h1{margin:0;letter-spacing:-.05em;line-height:1.05}.hero h1{font-size:clamp(2.2rem,7vw,4rem)}.hero p{color:var(--muted);font-size:1.04rem}.search-wrap{display:flex;gap:8px;margin-top:22px}.search-wrap input{min-width:0;flex:1;padding:14px;border:1px solid var(--line);border-radius:14px;outline:0}.btn{border:0;border-radius:12px;padding:12px 16px;font-weight:800;cursor:pointer}.primary{background:var(--accent);color:#fff}.secondary{background:var(--surface);border:1px solid var(--line)}.full{width:100%}.section{padding:28px 0}.section-head{display:flex;justify-content:space-between;align-items:end;margin-bottom:14px}.section-head h2{margin:0}.section-head a{color:var(--accent);font-weight:750}.category-row{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}.category-chip{background:var(--surface);border:1px solid var(--line);cursor:pointer;text-align:left;border-radius:16px;padding:16px;font-weight:800}.category-chip span{display:block;color:var(--muted);font-size:.78rem;font-weight:500;margin-top:4px}.listing-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:14px}.listing-card{background:var(--surface);border:1px solid var(--line);border-radius:16px;overflow:hidden;cursor:pointer}.listing-media{aspect-ratio:1;background:#e9eeeb;display:grid;place-items:center;color:var(--muted);overflow:hidden}.listing-media img{width:100%;height:100%;object-fit:cover}.listing-body{padding:12px}.listing-title{font-weight:800;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.price{font-weight:900;margin:4px 0}.meta,.muted{color:var(--muted);font-size:.8rem}.empty,.error-box,.trust{background:var(--surface);border:1px dashed var(--line);border-radius:16px;padding:26px;color:var(--muted)}.trust{border:0;background:#eef6f2}.skeleton{height:260px;border-radius:16px;background:linear-gradient(90deg,#edf0ee,#fafafa,#edf0ee);background-size:200%;animation:shine 1.2s infinite}@keyframes shine{to{background-position:-200%}}.page-title{padding:24px 0 10px}.page-title h1{font-size:2rem}.browse-toolbar,.seller-switch,.account-tabs{display:flex;gap:8px;overflow:auto;padding:14px 0}.filter-chip{white-space:nowrap;border-radius:999px;padding:9px 13px;background:var(--surface);border:1px solid var(--line);cursor:pointer}.filter-chip.active{color:var(--accent);border-color:var(--accent);background:#edf6f1}.modal-backdrop{position:fixed;inset:0;z-index:50;display:grid;place-items:center;padding:18px;background:rgba(10,18,14,.52)}.hidden{display:none!important}.modal{position:relative;width:min(100%,520px);max-height:90vh;overflow:auto;background:var(--surface);border-radius:22px;padding:24px}.modal-close{position:absolute;right:14px;top:9px;font-size:1.7rem;color:var(--muted)}.auth-tabs{display:grid;grid-template-columns:1fr 1fr;background:var(--bg);padding:4px;border-radius:12px;margin:18px 0}.tab{border:0;background:transparent;padding:10px;border-radius:9px;font-weight:750}.tab.active{background:#fff}.field{display:grid;gap:6px;margin-bottom:13px}.field label{font-size:.84rem;font-weight:750}.field input,.field select,.field textarea{width:100%;padding:12px;border:1px solid var(--line);border-radius:11px;background:#fff;outline:0}.field textarea{min-height:130px;resize:vertical}.field input:focus,.field select:focus,.field textarea:focus{border-color:var(--accent)}.form-message{min-height:24px}.form-message.error{color:var(--danger)}.form-message.success{color:var(--accent)}.form-section{padding:18px 0;border-top:1px solid var(--line)}.form-section h3{margin:0 0 15px}.two-col{display:grid;grid-template-columns:1fr 1fr;gap:10px}.check{display:flex;gap:8px;align-items:center;margin:8px 0 15px;font-size:.9rem}.photo-preview{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-top:10px}.photo-item{aspect-ratio:1;border-radius:12px;overflow:hidden;background:#edf1ee}.photo-item img{width:100%;height:100%;object-fit:cover}.motor-box{background:var(--bg);padding:12px;border-radius:14px}.seller-list{display:grid;gap:10px;margin:15px 0}.seller-row{display:grid;grid-template-columns:1fr auto;gap:8px;align-items:center;background:var(--surface);border:1px solid var(--line);border-radius:15px;padding:14px}.seller-row strong,.seller-row span{display:block}.seller-row>div span{color:var(--muted);font-size:.78rem;margin-top:3px}.status{font-size:.7rem!important;font-weight:850;text-transform:uppercase}.status-published{color:var(--accent)}.status-pending{color:#a15c00}.status-sold{color:#68716b}.status-rejected{color:var(--danger)}.mini-btn{grid-column:1/-1;border:1px solid var(--line);background:var(--bg);border-radius:10px;padding:8px;cursor:pointer;font-weight:750}.detail-media{aspect-ratio:4/3;background:#edf1ee;border-radius:16px;overflow:hidden;display:grid;place-items:center}.detail-media img{width:100%;height:100%;object-fit:cover}.detail-head{display:flex;justify-content:space-between;gap:10px;align-items:start}.detail-head h2{margin-bottom:4px}.detail-price{font-size:1.6rem;font-weight:900}.favorite-btn{border:1px solid var(--line);background:#fff;border-radius:50%;width:44px;height:44px;font-size:1.35rem;cursor:pointer}.detail-section{border-top:1px solid var(--line);padding:17px 0}.seller-box{background:var(--bg);padding:14px;border-radius:14px}.sticky-cta{display:block;text-align:center;margin-top:16px}.bottom-nav{position:fixed;left:0;right:0;bottom:0;z-index:30;display:grid;grid-template-columns:repeat(5,1fr);background:rgba(255,255,255,.96);border-top:1px solid var(--line);padding:8px 8px calc(8px + env(safe-area-inset-bottom))}.bottom-nav a,.bottom-nav button{border:0;background:transparent;display:grid;place-items:center;color:var(--muted);padding:4px;cursor:pointer}.bottom-nav span{font-size:1.35rem}.bottom-nav small{font-size:.68rem;font-weight:700}.bottom-nav .active{color:var(--accent)}.toast{position:fixed;left:50%;bottom:96px;z-index:70;transform:translate(-50%,20px);opacity:0;background:var(--text);color:#fff;padding:11px 15px;border-radius:12px;transition:.2s}.toast.show{opacity:1;transform:translate(-50%,0)}@media(max-width:800px){.listing-grid{grid-template-columns:repeat(2,1fr)}}@media(max-width:520px){.page{padding:18px 14px}.category-row{grid-template-columns:repeat(2,1fr)}.search-wrap{display:grid;grid-template-columns:1fr auto}.hero{padding-top:32px}.hero h1{font-size:2.25rem}.two-col{grid-template-columns:1fr}.seller-row{grid-template-columns:1fr}.seller-row .status{grid-column:1/-1}}
+/* =========================================================
+   LAPAK SIDIMPUAN - FRONTEND STYLES
+   File ini mengatur warna, layout, kartu, form, dan responsive.
+   ========================================================= */
+:root{--bg:#f6f8f7;--surface:#fff;--surface-soft:#eef6f2;--text:#18201c;--muted:#68716b;--line:#dfe5e1;--accent:#176b4d;--accent-dark:#0e4e38;--accent-soft:#dff0e8;--danger:#b42318;--warning:#a15c00;--radius:18px;--shadow:0 10px 35px rgba(20,30,25,.07)}
+*{box-sizing:border-box}html{scroll-behavior:smooth}
+body{margin:0;background:var(--bg);color:var(--text);font-family:Inter,system-ui,-apple-system,"Segoe UI",sans-serif;line-height:1.5;padding-bottom:84px}
+button,input,select,textarea{font:inherit}a{color:inherit;text-decoration:none}
+
+/* Header: logo dan tombol akun. */
+.site-header{position:sticky;top:0;z-index:20;display:flex;align-items:center;justify-content:space-between;padding:14px 18px;background:rgba(255,255,255,.95);backdrop-filter:blur(14px);border-bottom:1px solid var(--line)}
+.brand{font-weight:850;font-size:1.1rem;letter-spacing:-.03em}.brand span{color:var(--accent)}
+.header-actions{display:flex;gap:8px;align-items:center}.icon-btn,.modal-close{border:0;background:transparent;cursor:pointer}.icon-btn{font-size:1.7rem}
+.account-btn{border:0;background:var(--text);color:#fff;border-radius:999px;padding:9px 14px;font-weight:750}
+
+/* Layout umum. */
+.app-shell{max-width:1120px;margin:auto}.page{padding:24px 18px}
+.eyebrow{margin:0 0 7px;color:var(--accent);font-size:.76rem;font-weight:850;letter-spacing:.12em}
+.hero h1,.page-title h1{margin:0;letter-spacing:-.05em;line-height:1.05}
+.hero{padding:42px 0 28px;max-width:920px}.hero h1{font-size:clamp(2.2rem,7vw,4rem)}.hero p{color:var(--muted);font-size:1.04rem}
+
+/* Visual Home: dibuat dengan CSS agar ringan dan tidak bergantung gambar eksternal. */
+.hero-visual{display:grid;grid-template-columns:1.15fr .85fr;gap:12px;margin-top:26px}
+.visual-main,.visual-side{position:relative;overflow:hidden;border-radius:24px;border:1px solid var(--line);background:linear-gradient(135deg,#dff0e8,#fff);padding:20px}
+.visual-main{min-height:250px;display:flex;flex-direction:column;justify-content:flex-end}
+.visual-main::before{content:"";position:absolute;width:190px;height:190px;border-radius:50%;right:-38px;top:-50px;background:rgba(23,107,77,.18)}
+.visual-main::after{content:"";position:absolute;width:125px;height:125px;border-radius:28px;right:72px;top:52px;background:rgba(255,255,255,.78);transform:rotate(12deg)}
+.visual-icon{position:relative;z-index:1;font-size:3.8rem;margin-bottom:auto}
+.visual-copy{position:relative;z-index:2}.visual-copy strong{display:block;font-size:1.15rem}.visual-copy span{display:block;color:var(--muted);font-size:.86rem;margin-top:4px}
+.visual-stack{display:grid;gap:12px}.visual-side{min-height:119px;display:flex;align-items:center;gap:14px}.visual-side:nth-child(2){background:linear-gradient(135deg,#fff,#edf4f0)}
+.visual-side .visual-icon{font-size:2.2rem;margin:0}.visual-side strong{display:block}.visual-side span{display:block;color:var(--muted);font-size:.78rem;margin-top:3px}
+
+/* Search dan tombol. */
+.search-wrap{display:flex;gap:8px;margin-top:22px}.search-wrap input{min-width:0;flex:1;padding:14px;border:1px solid var(--line);border-radius:14px;outline:0}
+.btn{border:0;border-radius:12px;padding:12px 16px;font-weight:800;cursor:pointer}.primary{background:var(--accent);color:#fff}.primary:hover{background:var(--accent-dark)}
+.secondary{background:var(--surface);border:1px solid var(--line)}.full{width:100%}
+
+/* Kategori dan section. */
+.section{padding:28px 0}.section-head{display:flex;justify-content:space-between;align-items:end;margin-bottom:14px}.section-head h2{margin:0}.section-head a{color:var(--accent);font-weight:750}
+.category-row{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}
+.category-chip{min-height:96px;background:var(--surface);border:1px solid var(--line);cursor:pointer;text-align:left;border-radius:16px;padding:15px;font-weight:800;transition:transform .18s ease,box-shadow .18s ease,border-color .18s ease}
+.category-chip:hover{transform:translateY(-2px);border-color:#c8d8d0;box-shadow:var(--shadow)}
+.category-icon{display:block;font-size:1.35rem;margin-bottom:7px}.category-chip span{display:block;color:var(--muted);font-size:.78rem;font-weight:500;margin-top:4px}
+
+/* Kartu listing. */
+.listing-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:14px}
+.listing-card{background:var(--surface);border:1px solid var(--line);border-radius:16px;overflow:hidden;cursor:pointer;transition:transform .18s ease,box-shadow .18s ease}
+.listing-card:hover{transform:translateY(-2px);box-shadow:var(--shadow)}
+.listing-media{aspect-ratio:1;background:linear-gradient(135deg,#e9eeeb,#dfe9e4);display:grid;place-items:center;color:var(--muted);overflow:hidden}
+.listing-media img{width:100%;height:100%;object-fit:cover}.listing-body{padding:12px}
+.listing-title{font-weight:800;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.price{font-weight:900;margin:4px 0}.meta,.muted{color:var(--muted);font-size:.8rem}
+
+/* Trust dan cara kerja. */
+.trust{border:0;background:var(--surface-soft);border-radius:20px;padding:22px}.trust p{margin-bottom:0}
+.steps{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}.step{background:var(--surface);border:1px solid var(--line);border-radius:16px;padding:18px}
+.step-number{display:inline-grid;place-items:center;width:32px;height:32px;border-radius:50%;background:var(--accent-soft);color:var(--accent);font-weight:900;margin-bottom:10px}
+.step strong{display:block}.step p{margin-bottom:0;color:var(--muted);font-size:.86rem}
+
+/* Empty state dan loading. */
+.empty,.error-box{background:var(--surface);border:1px dashed var(--line);border-radius:16px;padding:26px;color:var(--muted)}
+.skeleton{height:260px;border-radius:16px;background:linear-gradient(90deg,#edf0ee,#fafafa,#edf0ee);background-size:200%;animation:shine 1.2s infinite}
+@keyframes shine{to{background-position:-200%}}
+
+/* Browse dan account. */
+.page-title{padding:24px 0 10px}.page-title h1{font-size:2rem}
+.browse-toolbar,.seller-switch,.account-tabs{display:flex;gap:8px;overflow:auto;padding:14px 0}
+.filter-chip{white-space:nowrap;border-radius:999px;padding:9px 13px;background:var(--surface);border:1px solid var(--line);cursor:pointer}
+.filter-chip.active{color:var(--accent);border-color:var(--accent);background:#edf6f1}
+
+/* Modal dan form. */
+.modal-backdrop{position:fixed;inset:0;z-index:50;display:grid;place-items:center;padding:18px;background:rgba(10,18,14,.52)}
+.hidden{display:none!important}.modal{position:relative;width:min(100%,520px);max-height:90vh;overflow:auto;background:var(--surface);border-radius:22px;padding:24px}
+.modal-close{position:absolute;right:14px;top:9px;font-size:1.7rem;color:var(--muted)}
+.auth-tabs{display:grid;grid-template-columns:1fr 1fr;background:var(--bg);padding:4px;border-radius:12px;margin:18px 0}
+.tab{border:0;background:transparent;padding:10px;border-radius:9px;font-weight:750}.tab.active{background:#fff}
+.field{display:grid;gap:6px;margin-bottom:13px}.field label{font-size:.84rem;font-weight:750}
+.field input,.field select,.field textarea{width:100%;padding:12px;border:1px solid var(--line);border-radius:11px;background:#fff;outline:0}
+.field textarea{min-height:130px;resize:vertical}.field input:focus,.field select:focus,.field textarea:focus{border-color:var(--accent)}
+.form-message{min-height:24px}.form-message.error{color:var(--danger)}.form-message.success{color:var(--accent)}
+.form-section{padding:18px 0;border-top:1px solid var(--line)}.form-section h3{margin:0 0 15px}.two-col{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.check{display:flex;gap:8px;align-items:center;margin:8px 0 15px;font-size:.9rem}.photo-preview{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-top:10px}
+.photo-item{aspect-ratio:1;border-radius:12px;overflow:hidden;background:#edf1ee}.photo-item img{width:100%;height:100%;object-fit:cover}.motor-box{background:var(--bg);padding:12px;border-radius:14px}
+
+/* Seller dan detail listing. */
+.seller-list{display:grid;gap:10px;margin:15px 0}.seller-row{display:grid;grid-template-columns:1fr auto;gap:8px;align-items:center;background:var(--surface);border:1px solid var(--line);border-radius:15px;padding:14px}
+.seller-row strong,.seller-row span{display:block}.seller-row>div span{color:var(--muted);font-size:.78rem;margin-top:3px}
+.status{font-size:.7rem!important;font-weight:850;text-transform:uppercase}.status-published{color:var(--accent)}.status-pending{color:var(--warning)}.status-sold{color:#68716b}.status-rejected{color:var(--danger)}
+.mini-btn{grid-column:1/-1;border:1px solid var(--line);background:var(--bg);border-radius:10px;padding:8px;cursor:pointer;font-weight:750}
+.detail-media{aspect-ratio:4/3;background:#edf1ee;border-radius:16px;overflow:hidden;display:grid;place-items:center}.detail-media img{width:100%;height:100%;object-fit:cover}
+.detail-head{display:flex;justify-content:space-between;gap:10px;align-items:start}.detail-head h2{margin-bottom:4px}.detail-price{font-size:1.6rem;font-weight:900}
+.favorite-btn{border:1px solid var(--line);background:#fff;border-radius:50%;width:44px;height:44px;font-size:1.35rem;cursor:pointer}
+.detail-section{border-top:1px solid var(--line);padding:17px 0}.seller-box{background:var(--bg);padding:14px;border-radius:14px}.sticky-cta{display:block;text-align:center;margin-top:16px}
+
+/* Navigasi bawah HP. */
+.bottom-nav{position:fixed;left:0;right:0;bottom:0;z-index:30;display:grid;grid-template-columns:repeat(5,1fr);background:rgba(255,255,255,.96);border-top:1px solid var(--line);padding:8px 8px calc(8px + env(safe-area-inset-bottom))}
+.bottom-nav a,.bottom-nav button{border:0;background:transparent;display:grid;place-items:center;color:var(--muted);padding:4px;cursor:pointer}.bottom-nav span{font-size:1.35rem}.bottom-nav small{font-size:.68rem;font-weight:700}.bottom-nav .active{color:var(--accent)}
+.toast{position:fixed;left:50%;bottom:96px;z-index:70;transform:translate(-50%,20px);opacity:0;background:var(--text);color:#fff;padding:11px 15px;border-radius:12px;transition:.2s}.toast.show{opacity:1;transform:translate(-50%,0)}
+
+/* Responsive: menyesuaikan layout tablet dan HP. */
+@media(max-width:800px){.listing-grid{grid-template-columns:repeat(2,1fr)}.hero-visual{grid-template-columns:1fr}.visual-stack{grid-template-columns:1fr 1fr}}
+@media(max-width:520px){.page{padding:18px 14px}.category-row{grid-template-columns:repeat(2,1fr)}.search-wrap{display:grid;grid-template-columns:1fr auto}.hero{padding-top:32px}.hero h1{font-size:2.25rem}.two-col{grid-template-columns:1fr}.seller-row{grid-template-columns:1fr}.seller-row .status{grid-column:1/-1}.steps{grid-template-columns:1fr}.visual-main{min-height:215px}.visual-stack{grid-template-columns:1fr}}
