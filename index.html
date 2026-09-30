@@ -1,0 +1,96 @@
+<!doctype html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Lapak Sidimpuan - marketplace lokal mahasiswa Padangsidimpuan.">
+  <title>Lapak Sidimpuan</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <header class="site-header">
+    <a class="brand" href="./">Lapak <span>Sidimpuan</span></a>
+    <button class="menu-btn" type="button" aria-label="Buka menu">☰</button>
+    <nav class="nav" aria-label="Navigasi utama">
+      <a href="#barang">Barang</a>
+      <a href="#jasa">Jasa</a>
+      <a href="#cara">Cara kerja</a>
+      <a class="nav-login" href="#">Masuk</a>
+    </nav>
+  </header>
+
+  <main>
+    <section class="hero">
+      <p class="eyebrow">Marketplace lokal mahasiswa</p>
+      <h1>Jual, cari, dan temukan kebutuhanmu di Sidimpuan.</h1>
+      <p class="hero-copy">Tempat sederhana untuk barang bekas, perlengkapan kuliah, motor, dan jasa dari mahasiswa lokal.</p>
+      <div class="hero-actions">
+        <a class="btn btn-primary" href="#barang">Cari barang</a>
+        <a class="btn btn-secondary" href="#">Jual barang / jasa</a>
+      </div>
+    </section>
+
+    <section class="search-section" aria-label="Pencarian">
+      <label for="search">Cari di Lapak Sidimpuan</label>
+      <div class="search-box">
+        <input id="search" type="search" placeholder="Contoh: meja kos, laptop, desain..." autocomplete="off">
+        <button type="button" id="searchBtn">Cari</button>
+      </div>
+    </section>
+
+    <section id="barang" class="section">
+      <div class="section-heading">
+        <div>
+          <p class="eyebrow">Jelajahi</p>
+          <h2>Barang</h2>
+        </div>
+        <a href="#">Lihat semua</a>
+      </div>
+      <div class="category-grid">
+        <a href="#" class="category-card">Elektronik</a>
+        <a href="#" class="category-card">Furniture</a>
+        <a href="#" class="category-card">Buku & Kuliah</a>
+        <a href="#" class="category-card">Pakaian</a>
+        <a href="#" class="category-card">Motor</a>
+        <a href="#" class="category-card">Lainnya</a>
+      </div>
+    </section>
+
+    <section id="jasa" class="section">
+      <div class="section-heading">
+        <div>
+          <p class="eyebrow">Jelajahi</p>
+          <h2>Jasa</h2>
+        </div>
+        <a href="#">Lihat semua</a>
+      </div>
+      <div class="category-grid">
+        <a href="#" class="category-card">Design</a>
+        <a href="#" class="category-card">Video Editing</a>
+        <a href="#" class="category-card">Les Privat</a>
+        <a href="#" class="category-card">Dokumen</a>
+        <a href="#" class="category-card">Terjemahan</a>
+        <a href="#" class="category-card">Lainnya</a>
+      </div>
+    </section>
+
+    <section id="cara" class="section how">
+      <p class="eyebrow">Sederhana</p>
+      <h2>Cara kerja</h2>
+      <div class="steps">
+        <article><strong>01</strong><h3>Cari</h3><p>Temukan barang atau jasa di sekitar Sidimpuan.</p></article>
+        <article><strong>02</strong><h3>Hubungi</h3><p>Kontak penjual langsung lewat WhatsApp.</p></article>
+        <article><strong>03</strong><h3>Transaksi</h3><p>Temui penjual dan periksa barang sebelum membayar.</p></article>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <strong>Lapak Sidimpuan</strong>
+    <p>Marketplace lokal mahasiswa Padangsidimpuan.</p>
+    <small>Versi awal · Semua postingan melalui moderasi admin.</small>
+  </footer>
+
+  <script src="app.js"></script>
+</body>
+</html>
