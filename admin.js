@@ -6,7 +6,7 @@ const gate=document.getElementById("adminGate");
 const adminApp=document.getElementById("adminApp");
 const content=document.getElementById("adminContent");
 const stats=document.getElementById("adminStats");
-const toast=document.getElementById("toast");
+const toast=document.getElementById("toast"),adminAlerts=document.getElementById("adminAlerts");
 const loginForm=document.getElementById("adminLoginForm");
 const loginMessage=document.getElementById("adminLoginMessage");
 let currentView="pending";
@@ -73,11 +73,27 @@ async function init(){
 }
 
 async function loadStats(){
-  const statuses=["pending","published","sold","rejected"];
-  const results=await Promise.all(statuses.map(s=>sb.from("listings").select("id",{count:"exact",head:true}).eq("status",s)));
-  const report=await sb.from("reports").select("id",{count:"exact",head:true}).eq("status","open");
-  stats.innerHTML=results.map((r,i)=>'<div class="admin-stat"><strong>'+esc(r.count??0)+'</strong><span>'+["Pending","Aktif","Terjual","Ditolak"][i]+'</span></div>').join("")+
-    '<div class="admin-stat"><strong>'+esc(report.count??0)+'</strong><span>Laporan terbuka</span></div>';
+  const count=async(table,filter)=>{let q=sb.from(table).select("id",{count:"exact",head:true});if(filter)q=filter(q);const r=await q;return r.count??0};
+  const[sUsers,sUsers7,sListings,sPending,sPublished,sSold,sRejected,sReports,sSupport,sFav]=await Promise.all([
+    count("profiles"),count("profiles",q=>q.gte("created_at",new Date(Date.now()-7*864e5).toISOString())),
+    count("listings"),count("listings",q=>q.eq("status","pending")),count("listings",q=>q.eq("status","published")),
+    count("listings",q=>q.eq("status","sold")),count("listings",q=>q.eq("status","rejected")),
+    count("reports",q=>q.in("status",["open","reviewing"])),count("support_tickets",q=>q.in("status",["open","reviewing"])),count("favorites")
+  ]);
+  const s={users:sUsers,users7:sUsers7,listings:sListings,pending:sPending,published:sPublished,sold:sSold,rejected:sRejected,reports:sReports,support:sSupport,favorites:sFav};
+  stats.innerHTML=[
+    ["👥","Pengguna",s.users,"+"+s.users7+" baru / 7 hari","users"],
+    ["📦","Total listing",s.listings,s.published+" aktif","overview"],
+    ["⏳","Pending",s.pending,"Perlu moderasi","pending"],
+    ["🚨","Laporan",s.reports,"Perlu perhatian","reports"],
+    ["🎫","Bantuan",s.support,"Tiket belum selesai","support"],
+    ["❤️","Favorit",s.favorites,"Interaksi pengguna","overview"]
+  ].map(x=>'<button class="admin-stat" data-stat="'+x[4]+'"><span class="stat-icon">'+x[0]+'</span><div><strong>'+esc(x[2])+'</strong><span>'+esc(x[1])+'</span><small>'+esc(x[3])+'</small></div></button>').join("");
+  document.querySelectorAll("[data-stat]").forEach(b=>b.onclick=()=>{currentView=b.dataset.stat;loadView()});
+  const notices=[];if(s.pending)notices.push(["warning",s.pending+" listing menunggu approval.","pending"]);if(s.reports)notices.push(["danger",s.reports+" laporan perlu ditangani.","reports"]);if(s.support)notices.push(["info",s.support+" tiket bantuan belum selesai.","support"]);
+  adminAlerts.innerHTML=notices.length?notices.map(x=>'<button class="admin-alert '+x[0]+'" data-alert="'+x[2]+'"><strong>'+esc(x[1])+'</strong><span>Buka →</span></button>').join(""):'<div class="admin-ok">✓ Tidak ada pekerjaan mendesak saat ini.</div>';
+  document.querySelectorAll("[data-alert]").forEach(b=>b.onclick=()=>{currentView=b.dataset.alert;loadView()});
+  return s;
 }
 
 function setNav(view){
@@ -85,13 +101,31 @@ function setNav(view){
 }
 
 async function loadView(){
-  setNav(currentView);
-  content.innerHTML='<div class="skeleton"></div>';
+  setNav(currentView);content.innerHTML='<div class="skeleton"></div>';
+  if(currentView==="overview")return loadOverview();
   if(["pending","published","sold","rejected"].includes(currentView))return loadListings();
   if(currentView==="reports")return loadReports();
   if(currentView==="users")return loadUsers();
+  if(currentView==="support")return loadSupport();
   return loadLogs();
 }
+
+async function loadOverview(){
+  const[{data:listings},{data:cats},{data:acts}]=await Promise.all([
+    sb.from("listings").select("id,title,status,type,created_at,categories(name)").order("created_at",{ascending:false}).limit(8),
+    sb.from("categories").select("id,name,type").eq("active",true).order("sort_order"),
+    sb.from("activity_logs").select("id,event_type,target_type,target_id,metadata,created_at,actor_id").order("created_at",{ascending:false}).limit(8)
+  ]);
+  const categoryCounts=new Map();
+  (listings||[]).forEach(x=>{const n=x.categories?.name||"Lainnya";categoryCounts.set(n,(categoryCounts.get(n)||0)+1)});
+  const recent=(listings||[]).map(x=>'<div class="compact-row"><div><strong>'+esc(x.title)+'</strong><span>'+esc(x.categories?.name||x.type||"")+'</span></div><span class="status-pill status-'+esc(x.status)+'">'+esc(statusLabel(x.status))+'</span></div>').join("")||'<div class="empty-mini">Belum ada listing.</div>';
+  const catHtml=[...categoryCounts.entries()].sort((a,b)=>b[1]-a[1]).map(x=>'<div class="bar-row"><span>'+esc(x[0])+'</span><strong>'+x[1]+'</strong></div>').join("")||'<div class="empty-mini">Belum ada data kategori.</div>';
+  const actHtml=(acts||[]).map(activityRow).join("")||'<div class="empty-mini">Belum ada aktivitas.</div>';
+  content.innerHTML='<div class="overview-grid"><section class="panel"><div class="panel-head"><h2>Listing terbaru</h2><button class="text-btn" data-go="published">Lihat aktif</button></div>'+recent+'</section><section class="panel"><div class="panel-head"><h2>Kategori yang terisi</h2><span class="muted">8 listing terbaru</span></div>'+catHtml+'</section><section class="panel wide"><div class="panel-head"><h2>Aktivitas terbaru</h2><button class="text-btn" data-go="logs">Lihat semua</button></div>'+actHtml+'</section></div>';
+  document.querySelectorAll("[data-go]").forEach(b=>b.onclick=()=>{currentView=b.dataset.go;loadView()});
+}
+function statusLabel(s){return({pending:"Pending",published:"Aktif",sold:"Terjual",rejected:"Ditolak",archived:"Arsip"})[s]||s}
+function activityRow(x){const m=x.metadata||{};const labels={user_registered:"Pengguna baru",listing_created:"Listing dibuat",report_created:"Laporan dibuat",support_created:"Tiket bantuan"};return '<div class="compact-row"><div><strong>'+esc(labels[x.event_type]||x.event_type)+'</strong><span>'+esc(m.title||m.subject||m.reason||x.target_type||"Aktivitas")+'</span></div><span class="row-time">'+esc(date(x.created_at))+'</span></div>'}
 
 async function loadListings(){
   const{data,error}=await sb.from("listings")
@@ -194,14 +228,27 @@ async function loadUsers(){
   content.innerHTML='<div class="admin-table">'+data.map((u,i)=>'<div class="admin-row"><strong>'+esc(u.name||"Tanpa nama")+'</strong><div class="row-meta">WhatsApp: '+esc(u.whatsapp||"-")+'</div><div class="row-meta">Status akun: '+esc(u.status||"-")+' · Listing: '+esc(listingCounts[i].count??0)+'</div><div class="row-meta">Terdaftar: '+esc(date(u.created_at))+'</div></div>').join("")+'</div>';
 }
 
-async function loadLogs(){
-  const{data,error}=await sb.from("moderation_logs").select("id,actor_id,target_type,target_id,action,reason,created_at").order("created_at",{ascending:false}).limit(100);
+async function loadSupport(){
+  const{data,error}=await sb.from("support_tickets").select("id,user_id,category,subject,message,status,admin_reply,created_at,updated_at").order("updated_at",{ascending:false}).limit(100);
   if(error){content.innerHTML='<div class="error-box">'+esc(error.message)+'</div>';return}
-  if(!data?.length){content.innerHTML='<div class="empty"><h2>Belum ada riwayat moderasi.</h2><p>Aksi approve/tolak admin akan tercatat di sini jika trigger log aktif.</p></div>';return}
-  const ids=[...new Set(data.map(x=>x.actor_id).filter(Boolean))];
-  const{data:profiles}=ids.length?await sb.from("profiles").select("id,name").in("id",ids):{data:[]};
-  const pm=new Map((profiles||[]).map(p=>[p.id,p]));
-  content.innerHTML='<div class="admin-table">'+data.map(x=>'<div class="admin-row"><strong>'+esc(x.action)+'</strong><div class="row-meta">Admin: '+esc(pm.get(x.actor_id)?.name||"Admin")+' · Target: '+esc(x.target_type||"-")+' '+esc(x.target_id||"")+'</div><div class="row-meta">'+esc(date(x.created_at))+'</div><p>'+esc(x.reason||"Tidak ada alasan.")+'</p></div>').join("")+'</div>';
+  if(!data?.length){content.innerHTML='<div class="empty"><h2>Belum ada tiket bantuan.</h2><p>Pengguna dapat menghubungi admin dari menu Akun.</p></div>';return}
+  const ids=[...new Set(data.map(x=>x.user_id).filter(Boolean))];const{data:users}=ids.length?await sb.from("profiles").select("id,name,email,whatsapp").in("id",ids):{data:[]};const um=new Map((users||[]).map(x=>[x.id,x]));
+  content.innerHTML='<div class="admin-table">'+data.map(t=>{const u=um.get(t.user_id);return '<div class="ticket-row"><div class="row-top"><div><span class="ticket-category">'+esc(t.category)+'</span><h3>'+esc(t.subject)+'</h3></div><span class="status-pill status-'+esc(t.status)+'">'+esc(t.status)+'</span></div><div class="row-meta">'+esc(u?.name||"Pengguna")+' · '+esc(u?.email||"")+' · WA '+esc(u?.whatsapp||"-")+'</div><p>'+esc(t.message)+'</p>'+(t.admin_reply?'<div class="admin-reply"><strong>Balasan admin</strong><p>'+esc(t.admin_reply)+'</p></div>':'')+(['open','reviewing'].includes(t.status)?'<div class="ticket-form"><textarea id="reply-'+t.id+'" placeholder="Tulis balasan untuk pengguna...">'+esc(t.admin_reply||"")+'</textarea><div class="row-actions"><button class="btn secondary" data-ticket-review="'+t.id+'">Tandai diproses</button><button class="btn primary" data-ticket-resolve="'+t.id+'">Balas & selesai</button></div></div>':"")+'</div>'}).join("")+'</div>';
+  document.querySelectorAll("[data-ticket-review]").forEach(b=>b.onclick=()=>updateTicket(b.dataset.ticketReview,"reviewing"));
+  document.querySelectorAll("[data-ticket-resolve]").forEach(b=>b.onclick=()=>updateTicket(b.dataset.ticketResolve,"resolved"));
+}
+async function updateTicket(id,status){const reply=document.getElementById("reply-"+id)?.value.trim()||null;const patch={status,admin_id:adminUser.id,admin_reply:reply};if(status==="resolved")patch.resolved_at=new Date().toISOString();const{error}=await sb.from("support_tickets").update(patch).eq("id",id);if(error){toastMsg(error.message);return}toastMsg("Tiket diperbarui.");await refreshDashboard()}
+
+async function loadLogs(){
+  const[{data:acts,error:aErr},{data:mods,error:mErr}]=await Promise.all([
+    sb.from("activity_logs").select("id,event_type,target_type,target_id,metadata,created_at,actor_id").order("created_at",{ascending:false}).limit(100),
+    sb.from("moderation_logs").select("id,actor_id,target_type,target_id,action,reason,created_at").order("created_at",{ascending:false}).limit(100)
+  ]);
+  if(aErr||mErr){content.innerHTML='<div class="error-box">'+esc(aErr?.message||mErr?.message||"Gagal memuat aktivitas.")+'</div>';return}
+  const combined=[...(acts||[]).map(x=>({...x,kind:"activity"})),...(mods||[]).map(x=>({...x,event_type:"moderation",metadata:{action:x.action,reason:x.reason},kind:"moderation"}))].sort((a,b)=>new Date(b.created_at)-new Date(a.created_at)).slice(0,150);
+  if(!combined.length){content.innerHTML='<div class="empty"><h2>Belum ada aktivitas.</h2><p>Aktivitas pengguna dan moderasi akan tercatat di sini.</p></div>';return}
+  const ids=[...new Set(combined.map(x=>x.actor_id).filter(Boolean))];const{data:users}=ids.length?await sb.from("profiles").select("id,name,email").in("id",ids):{data:[]};const um=new Map((users||[]).map(x=>[x.id,x]));
+  content.innerHTML='<div class="timeline">'+combined.map(x=>{const m=x.metadata||{},u=um.get(x.actor_id);let label=x.kind==="moderation"?"Moderasi: "+(m.action||"aksi"):({user_registered:"Pengguna baru",listing_created:"Listing dibuat",report_created:"Laporan dibuat",support_created:"Tiket bantuan"}[x.event_type]||x.event_type);return '<div class="timeline-item"><span class="timeline-dot"></span><div><strong>'+esc(label)+'</strong><p>'+esc(m.title||m.subject||m.reason||x.target_type||"Aktivitas")+'</p><small>'+esc(u?.name||"Sistem")+' · '+esc(date(x.created_at))+'</small></div></div>'}).join("")+'</div>';
 }
 
 document.querySelectorAll("[data-view]").forEach(b=>b.onclick=()=>{currentView=b.dataset.view;loadView()});
